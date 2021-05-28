@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>CORY</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu" rel="stylesheet">
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href="public\css\styles.css" rel="stylesheet" type="text/css">
+
+  <!-- Font Awesome -->
+  <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+
+  <!-- Bootstrap Scripts -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" >
+
+  <link rel="icon" href="public\images\favicon-32x32.png" type="image" sizes="32x32">
+
+</head>
+
+
+<body>
+ 
+  <section class="colored-section" id="title" style="background-color: #98bfb5;">
+
+    <div class="container-fluid">
+
+
+
+
+      <!-- Nav Bar -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <a class="navbar-brand" href="#"><strong><h1> CORY </h1></strong></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#" style="color: white;text-decoration: underline; font-size: 25px;"> Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#footer" style="color: white;text-decoration: underline; font-size: 25px;"> Contact </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white; text-decoration: underline;font-size: 25px;">
+                Language
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#" style="color:black;font-size: 20px;"> English </a>
+                <a class="dropdown-item" href="#" style="color:black;font-size: 20px;"> Hindi </a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="color: white;text-decoration: underline;font-size: 25px;" href="home"> Login/Signup </a>
+            
+          </ul>
+          <div class="wrapper" >
+            <div class="search-input">
+              <a href="" target="_blank" hidden></a>
+              <input type="text" placeholder="Type to search.." >
+              <div class="autocom-box">
+                <li>Transportation</li>
+                <li>Carpentering</li>
+                <li>Handcraft</li>
+                <li>Painting</li>
+                <li>Construction</li>
+                <li>Househelp</li>
+                <li>Cooking</li>
+                <li>Weaving</li>
+                <li>Sewing</li>
+              </div>
+              <div class="icon"><i class="fas fa-search"></i></div>
+            </div>
+            
+          </div>
+          <script>
+            let suggestions=[
+              "Transportation",
+              "Carpentering",
+              "Handcraft",
+              "Painting",
+              "Househelp",
+              "Cooking",
+              "Weaving",
+              "Sewing"
+            ];
+            const searchWrapper=document.querySelector(".search-input");
+            const inputBox=searchWrapper.querySelector("input");
+            const suggBox=searchWrapper.querySelector(".autocom-box");
+            const icon = searchWrapper.querySelector(".icon");
+            let linkTag=searchWrapper.querySelector("a");
+            let webLink;
+            
+            //if user presses any key and releases
+            inputBox.onkeyup=(e)=>{
+              let userData = e.target.value; //user entered value
+              let emptyArray=[];
+              if(userData){
+                icon.onclick = ()=>{
+                webLink = "https://www.google.com/search?q=" + userData;
+                linkTag.setAttribute("href", webLink);
+                console.log(webLink);
+                linkTag.click();
+              }
+                emptyArray = suggestions.filter((data)=>{
+                //filtering array value and user char to lowercase and return only those 
+                //word which are starting with the user entered word
+                return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
+              });
+              emptyArray = emptyArray.map((data)=>{
+                //passing return data inside li tag
+                return data = '<li>' + data + '</li>';
+              });
+              // console.log(emptyArray);
+              searchWrapper.classList.add("active"); //shows autocomplete box
+              showSuggestions(emptyArray);
+              let allList = suggBox.querySelectorAll("li");
+              for(let i=0;i<allList.length;i++){
+                //adding onclick attribute in all li tag
+                allList[i].setAttribute("onclick","select(this)");
+              }
+              }else{
+                searchWrapper.classList.remove("active") //hides autocomplete box
+              }
+            }
+
+          function select(element){
+            let selectUserData = element.textContent;
+            inputBox.value = selectUserData; //passing the user selected list item data is testified
+            icon.onclick = ()=>{
+            webLink = "https://www.google.com/search?q=" + selectUserData;
+            linkTag.setAttribute("href", webLink);
+            linkTag.click();
+            }
+            searchWrapper.classList.remove("active");
+          }
+
+          function showSuggestions(list){
+            let listData;
+            if(!list.length){
+              userValue = inputBox.value;
+              listData = '<li>' + userValue + '</li>';
+            }else{
+              listData = list.join('');
+            }
+            suggBox.innerHTML = listData;
+          }
+          </script>
+          
+        </div>
+      </nav>
+      <div class="row">
+
+        <div class="col-lg-6">
+          
+          <h2><b>Creating Opportunity for Rural Youth</b></h2>
+          <h4><strong>Learn | Earn | Grow </strong></h4>
+          
+          <style>
+          * {
+              box-sizing: border-box;
+            }
+            
+            /* Create two equal columns that floats next to each other */
+            .column {
+              float: left;
+              width: 50%;
+              padding: 10px;
+              
+            }
+            
+            /* Clear floats after the columns */
+            .row:after {
+              content: "";
+              display: table;
+              clear: both;
+            }
+            </style>
+            
+            <div class="row">
+              <div class="column" ><!--style="background-color:#aaa;"-->
+                <br>
+                <h2> For Companies</h2>
+                <p>Hire wokers here</p>
+                <button type="button" class="btn btn-dark btn-lg download-button"><a href="views\hire.ejs"> Start Hiring</a></button>
+              </div>
+              <div class="column">
+                <br>
+                <h2> For Workers</h2>
+                <p> Find Work here</p>
+                <button type="button" class="btn btn-dark btn-lg download-button"><a href="#job">Start Working</a></button>
+              </div>
+            </div>
+          
+        </div>
+        
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- Features -->
+  <job id="job">
+    <br><h1>Job Categories</h1>
+  <div class="skills">
+    <div class="skill-row">
+      <img class="chilli-img" src="public\images\delivery-truck.png" alt="transportation-img">
+      <a href=link.ejs><h3>Transportation</h3></a>
+     
+    </div>
+    <div class="skill-row">
+      <img class="chilli-img" src="public\images\carpenter.png" alt="carpentering-img">
+      <a href=link.ejs><h3>Carpentering</h3></a>
+    </div>
+
+    <div class="skill-row">
+      <img class="chilli-img" src="public\images\porcelain.png" alt="handicraft-img">
+      <a href=link.ejs><h3>Handcraft</h3></a>
+    </div>
+
+    <div class="skill-row">
+      <img class="chilli-img" src="public\images\paint-roll.png" alt="painting-img">
+      <a href=link.ejs><h3>Painting</h3></a>
+    </div>
+
+    <div class="skill-row">
+      <img class="chilli-img" src="public\images\under-construction.png" alt="construction-img">
+      <a href=link.ejs> <h3>Construction</h3></a>
+    </div>
+    <div class="skill-row">
+      <img class="chilli-img" src="public\images\dust.png" alt="househelp-img">
+      <a href=link.ejs> <h3>Househelp</h3></a>
+    </div>
+    <div class="skill-row">
+      <img class="chilli-img" src="public\images\cooking.png" alt="cooking-img">
+      <a href=link.ejs><h3>Cooking</h3></a>
+    </div>
+    <div class="skill-row">
+      <img class="chilli-img" src="public\images\ball-of-wool.png" alt="weaving-img">
+      <a href=link.ejs><h3>Weaving</h3></a>
+    </div>
+    <div class="skill-row">
+      <img class="chilli-img" src="public\images\sewing.png" alt="sewing-img">
+      <a href=link.ejs><h3>Sewing</h3></a>
+    </div>
+  </div>
+
+
+  <section class="colored-section" id="testimonials">
+
+    <div id="testimonial-carousel" class="carousel slide" data-ride="false">
+      <div class="carousel-inner">
+        <div class="carousel-item active container-fluid">
+          <h2 class="testimonial-text">Want to get trained ?</h2>
+          <button type="button" class="btn btn-dark btn-lg download-button"><a href="https://www.startupindia.gov.in/content/sih/en/government-schemes/pmkvy_scheme.html" target="_blank">Know More</a></button>
+        </div>
+        <div class="carousel-item container-fluid">
+          <h2 class="testimonial-text">Free training programme</h2>
+          <button type="button" class="btn btn-dark btn-lg download-button"><a href="https://rural.nic.in/press-release/training-and-employment-rural-youthiio" target="_blank">Enroll Yourself</a></button>
+          
+        </div>
+        <div class="carousel-item container-fluid">
+          <h2 class="testimonial-text">Government policies realted to Employability</h2>
+          <button type="button" class="btn btn-dark btn-lg download-button"><a href="https://rural.nic.in/scheme-websites" target="_blank">Know More</a></button>
+         
+        </div>
+        <div class="carousel-item container-fluid">
+          <h2 class="testimonial-text">Learn something new, today !</h2>"
+          <button type="button" class="btn btn-dark btn-lg download-button"><a href="https://free.aicte-india.org/" target="_blankl">Register</a></button>
+        
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#testimonial-carousel" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+      </a>
+      <a class="carousel-control-next" href="#testimonial-carousel" role="button" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+      </a>
+    </div>
+
+  </section>
+
+
+ 
+  <footer id="footer">
+  <footer class="bg-light text-center text-lg-start">
+    <div class="container p-4">
+      
+      <div class="row">
+        
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase"> <a href="https://docs.google.com/forms/d/e/1FAIpQLSeRyJeHINJSXEXyjgqbaLxVMF4kqrjkBSBz_ehMiIVtqgq5BA/viewform"><b>Help & Support</b></a></h5>
+
+        </div>
+        
+  
+        
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase mb-0"><b>Contact</b></h5><br>
+          <p><e>Email</e>: 
+            <br>
+            nandini.acharya31@gmail.com
+            <br>
+            tyagiparisha99@gmail.com
+            <!-- <a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=new">nandini.acharya31@gmail.com</a><br>
+            <a href="tyagiparisha99@gmail.com">tyagiparisha99@gmail.com</a> -->
+          </p>
+          <p><e>Helpline No.- 1800 225588</e></p>
+        </div>
+      
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase"><b>About Us</b></h5><br>
+          <p><b> Developed from one section of the society to another section. </b></p>
+        </div>
+        
+  
+        
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase mb-0"><b>Terms & Conditions</b></h5><br>
+           <p><e>Privacy Policy</e></p>
+           <p><e>Copyright Policy</e></p>
+           <p><e>Code of Conduct</e></p>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+    
+  
+  
+    <i class="social-icon fab fa-facebook-f"></i>
+      <i class="social-icon fab fa-twitter"></i>
+      <i class="social-icon fab fa-instagram"></i>
+      <i class="social-icon fas fa-envelope"></i>
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2021 Copyright:
+      <a class="text-dark" >CORY.com</a>
+    </div>
+  </footer>
+
+
+</body>
+
+</html>
