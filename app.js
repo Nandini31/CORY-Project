@@ -80,9 +80,9 @@ passport.use(new GoogleStrategy({
 //   res.sendFile('apply.html');
 // });
 
-// app.get('/',function(req,res) {
-//   res.sendFile('link.html');
-// });
+app.get("/link",function(req,res) {
+  res.render("link");
+});
 
 app.get("/", function (req, res) {
   res.render("index");
