@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+	<title>Job Portal Section</title>
+  <body style="background-color:#98bfb5;"></body>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu" rel="stylesheet">
+  <link rel="stylesheet" href="public\css\style3.css" type="text/css">
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="public\css\styles.css" type="text/css">
+
+  <!-- Font Awesome -->
+  <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+
+  <!-- Bootstrap Scripts -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="icon" href="public\images\favicon-32x32.png" type="image" sizes="32x32">
+
+</head>
+<body>
+
+  <section class="colored-section" id="title" style="background-color: #98bfb5;">
+
+    <div class="container-fluid">
+  <!-- Nav Bar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    <a class="navbar-brand" href="#"><strong><h1> CORY </h1></strong></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/" style="color: white;text-decoration: underline; font-size: 25px;"> Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#footer" style="color: white;text-decoration: underline; font-size: 25px;"> Contact </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white; text-decoration: underline;font-size: 25px;">
+            Language
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#" style="color:black;font-size: 20px;"> English </a>
+            <a class="dropdown-item" href="#" style="color:black;font-size: 20px;"> Hindi </a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="color: white;text-decoration: underline;font-size: 25px;" href="home"> Login/Signup </a>
+        
+      </ul>
+      <div class="wrapper" >
+        <div class="search-input">
+          <a href="" target="_blank" hidden></a>
+          <input type="text" placeholder="Type to search.." >
+          <div class="autocom-box">
+            <li>Transportation</li>
+            <li>Carpentering</li>
+            <li>Handcraft</li>
+            <li>Painting</li>
+            <li>Construction</li>
+            <li>Househelp</li>
+            <li>Cooking</li>
+            <li>Weaving</li>
+            <li>Sewing</li>
+          </div>
+          <div class="icon"><i class="fas fa-search"></i></div>
+        </div>
+        
+      </div>
+      <script>
+        let suggestions=[
+          "Transportation",
+          "Carpentering",
+          "Handcraft",
+          "Painting",
+          "Househelp",
+          "Cooking",
+          "Weaving",
+          "Sewing"
+        ];
+        const searchWrapper=document.querySelector(".search-input");
+        const inputBox=searchWrapper.querySelector("input");
+        const suggBox=searchWrapper.querySelector(".autocom-box");
+        const icon = searchWrapper.querySelector(".icon");
+        let linkTag=searchWrapper.querySelector("a");
+        let webLink;
+        
+        //if user presses any key and releases
+        inputBox.onkeyup=(e)=>{
+          let userData = e.target.value; //user entered value
+          let emptyArray=[];
+          if(userData){
+            icon.onclick = ()=>{
+            webLink = "https://www.google.com/search?q=" + userData;
+            linkTag.setAttribute("href", webLink);
+            console.log(webLink);
+            linkTag.click();
+          }
+            emptyArray = suggestions.filter((data)=>{
+            //filtering array value and user char to lowercase and return only those 
+            //word which are starting with the user entered word
+            return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
+          });
+          emptyArray = emptyArray.map((data)=>{
+            //passing return data inside li tag
+            return data = '<li>' + data + '</li>';
+          });
+          // console.log(emptyArray);
+          searchWrapper.classList.add("active"); //shows autocomplete box
+          showSuggestions(emptyArray);
+          let allList = suggBox.querySelectorAll("li");
+          for(let i=0;i<allList.length;i++){
+            //adding onclick attribute in all li tag
+            allList[i].setAttribute("onclick","select(this)");
+          }
+          }else{
+            searchWrapper.classList.remove("active") //hides autocomplete box
+          }
+        }
+
+      function select(element){
+        let selectUserData = element.textContent;
+        inputBox.value = selectUserData; //passing the user selected list item data is testified
+        icon.onclick = ()=>{
+        webLink = "https://www.google.com/search?q=" + selectUserData;
+        linkTag.setAttribute("href", webLink);
+        linkTag.click();
+        }
+        searchWrapper.classList.remove("active");
+      }
+
+      function showSuggestions(list){
+        let listData;
+        if(!list.length){
+          userValue = inputBox.value;
+          listData = '<li>' + userValue + '</li>';
+        }else{
+          listData = list.join('');
+        }
+        suggBox.innerHTML = listData;
+      }
+      </script>
+      
+    </div>
+  </nav>
+  </div>
+  </section>
+  <!--main section-->
+	<p>
+    <div class="row" id="job-info">
+      <div class="column">
+        <h2>Companies XYZ</h2>
+        <form action="/action_page.php">
+          <label for="fname">Job Type:</label><br>
+          <input type="text" id="fname" name="fname" value=" "><br>
+          <label for="fname">Project Name:</label><br>
+          <input type="text" id="fname" name="fname" value=" "><br>
+          <label for="fname">Location:</label><br>
+          <input type="text" id="fname" name="fname" value=" "><br>
+          <label for="fname">Pay:</label><br>
+          <input type="text" id="fname" name="fname" value=" "><br>
+          <label for="fname">Time Duration:</label><br>
+          <input type="text" id="fname" name="fname" value=" "><br><br>
+          <button type="button" class="btn btn-primary"><a href="apply"><h4>Apply</h4></a></button>
+          <br><br><br>
+        </form> 
+      </div>
+      <div class="column">
+        <h2>Companies ABC</h2>
+        <form action="/action_page.php">
+          <label for="fname">Job Type:</label><br>
+          <input type="text" id="fname" name="fname" value=" "><br>
+          <label for="fname">Project Name:</label><br>
+          <input type="text" id="fname" name="fname" value=" "><br>
+          <label for="fname">Location:</label><br>
+          <input type="text" id="fname" name="fname" value=" "><br>
+          <label for="fname">Pay:</label><br>
+          <input type="text" id="fname" name="fname" value=" "><br>
+          <label for="fname">Time Duration:</label><br>
+          <input type="text" id="fname" name="fname" value=" "><br><br>
+          <button type="button" class="btn btn-primary"><a href="apply"><h4>Apply</h4></a></button>
+          <br><br><br>
+        </form> 
+      </div>
+      <div class="column">
+        <h2>Companies DEF</h2>
+        <form action="/action_page.php">
+          <label for="fname">Job Type:</label><br>
+          <input type="text" id="fname" name="fname" value=" "><br>
+          <label for="fname">Project Name:</label><br>
+          <input type="text" id="fname" name="fname" value=" "><br>
+          <label for="fname">Location:</label><br>
+          <input type="text" id="fname" name="fname" value=" "><br>
+          <label for="fname">Pay:</label><br>
+          <input type="text" id="fname" name="fname" value=" "><br>
+          <label for="fname">Time Duration:</label><br>
+          <input type="text" id="fname" name="fname" value=" "><br><br>
+          <button type="button" class="btn btn-primary"><a href="apply"><h4>Apply</h4></a></button>
+          <br><br><br>
+        </form> 
+      </div>
+      <div class="column">
+        <h2>Companies PQR</h2>
+        <form action="/action_page.php">
+          <label for="fname">Job Type:</label><br>
+          <input type="text" id="fname" name="fname" value=" "><br>
+          <label for="fname">Project Name:</label><br>
+          <input type="text" id="fname" name="fname" value=" "><br>
+          <label for="fname">Location:</label><br>
+          <input type="text" id="fname" name="fname" value=" "><br>
+          <label for="fname">Pay:</label><br>
+          <input type="text" id="fname" name="fname" value=" "><br>
+          <label for="fname">Time Duration:</label><br>
+          <input type="text" id="fname" name="fname" value=" "><br><br>
+          <button type="button" class="btn btn-primary"><a href="apply"><h4>Apply</h4></a></button>
+          <br><br><br>
+        </form> 
+      </div>
+    </div>
+  </p>
+
+      <!-- Footer -->
+
+      <footer id="footer">
+        <footer class="bg-light text-center text-lg-start">
+          <!-- Grid container -->
+          <div class="container p-4">
+            <!--Grid row-->
+            <div class="row">
+              <!--Grid column-->
+              <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase"> <a href="https://docs.google.com/forms/d/e/1FAIpQLSeRyJeHINJSXEXyjgqbaLxVMF4kqrjkBSBz_ehMiIVtqgq5BA/viewform"><b>Help & Support</b></a></h5>
+      
+              </div>
+              <!--Grid column-->
+        
+              <!--Grid column-->
+              <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase mb-0"><b>Contact</b></h5><br>
+                <p><e>Email</e>: 
+                  <br>
+                  nandini.acharya31@gmail.com
+                  <br>
+                  tyagiparisha99@gmail.com
+                </p>
+                <p><e>Helpline No.- 1800 225588</e></p>
+              </div>
+              <!--Grid column-->
+        
+              <!--Grid column-->
+              <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase"><b>About Us</b></h5><br>
+                <p><b> Developed from one section of the society to another section. </b></p>
+              </div>
+              <!--Grid column-->
+        
+              <!--Grid column-->
+              <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase mb-0"><b>Terms & Conditions</b></h5><br>
+                <p><e>Privacy Policy</e></p>
+                <p><e>Copyright Policy</e></p>
+                <p><e>Code of Conduct</e></p>
+                
+              </div>
+              <!--Grid column-->
+            </div>
+            <!--Grid row-->
+          </div>
+          <!-- Grid container -->
+        
+          <!-- Copyright -->
+          <i class="social-icon fab fa-facebook-f"></i>
+            <i class="social-icon fab fa-twitter"></i>
+            <i class="social-icon fab fa-instagram"></i>
+            <i class="social-icon fas fa-envelope"></i>
+          <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2021 Copyright:
+            <a class="text-dark" >CORY.com</a>
+          </div>
+          <!-- Copyright -->
+        </footer>
+</body>
+</html>
