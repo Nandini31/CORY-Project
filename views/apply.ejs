@@ -154,18 +154,20 @@
 
 </div>
 </section>
-	<h1 class="user_form">Kindly fill this form!</h1>
-	<form>
+
+<!---- FORM ----->
+<h1 class="user_form">Kindly fill this form!</h1>
+<form action="/apply" method="POST" id="employeeForm">
   <label for="fname">First name:</label><br>
   <input type="text" id="fname" name="fname"><br><br>
   <label for="lname">Last name:</label><br>
-  <input type="text" id="lname" name="lname"><br><br>
+  <input type="text" id="lname" name="lname" required><br><br>
   <label for="lname">Mobile no:</label><br>
-  <input type="number" id="lname" name="lname"><br><br>
+  <input type="number" id="lname" name="mob" required><br><br>
   <label for="lname">Aadhar card no:</label><br>
-  <input type="number" id="lname" name="lname"><br><br>
-  <!-- <input type="submit" class="btn btn-info" value="Submit"><br> -->
-  <button type="button" class="btn btn-primary"><a href="infoSubmit"><h4>Submit</h4></a></button>
+  <input type="number" id="lname" name="adhaar" required><br><br>
+  <input type="submit" name="submit" class="btn btn-info" value="Submit"><br><br>
+  <h6><a href="/"><b>Go to Home Page</b></a></h4>
 </form>
 
 
