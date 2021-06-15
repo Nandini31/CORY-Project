@@ -158,9 +158,9 @@
 	  <!--title-->
 	<h1>Find Your People Here</h1><br>
 	<h3>Connect With Authentic Talent</h3><br>
-      <form>  
+      <form action="/hire" method="POST" id="employeeForm">  
         Select Job Type:  
-        <select name="Job">
+        <select name="job">
           <option value="null">-null-</option>
           <option value="Transportation">Transportation</option>
           <option value="Carpentering">Carpentering</option>
@@ -172,19 +172,20 @@
           <option value="Weaving">Weaving</option>
           <option value="Sewing">Sewing</option>
         </select>
-        <!--<input type="text" name="Name" size="15"> --> 
         <br><br>
         Describe your work:
-        <input type="text" name="Course" size="15" style="font-size: x-large;"><br> 
+        <input type="text" name="course" size="15" style="font: size 20px;;"><br> 
         <br>
         Work Location:
-        <input type="text" name="Course" size="15">
+        <input type="text" name="location" size="15">
         <br>
         <br>
         What is your budget:
-        <!-- <div class="form-outline"> -->
-        <input type="number" id="typeNumber" name="Course" size="15"><br>
-          <!--<label class="form-label" for="typeNumber">Number input</label>-->
+        <input type="number" id="typeNumber" name="budget" size="15"><br>
+          <br>
+          <br>
+          <input type="submit" name="submit" class="btn btn-info" value="Submit"><br><br>
+          <h6><a href="/"><b>Go to Home Page</b></a></h4>
       </form>
       
       <br>
