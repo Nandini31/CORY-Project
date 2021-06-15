@@ -38,10 +38,31 @@ const userSchema = new mongoose.Schema({
   secret: String
 });
 
+const employeeSchema=new mongoose.Schema({
+  first_name:String,
+  last_name:String,
+  mobile:Number,
+  adhaar:Number
+});
+
+const companySchema=new mongoose.Schema({
+  job_type:String,
+  work:String,
+  location:String,
+  budget:Number
+});
+
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
 
 const User = new mongoose.model("User", userSchema);
+
+const empModel=new mongoose.model("Employee",employeeSchema);
+const employee=empModel.find({});
+
+const companyModel=new mongoose.model("Company",companySchema);
+const company=companyModel.find({});
+
 
 passport.use(User.createStrategy());
 
@@ -221,6 +242,42 @@ app.post("/login", function (req, res) {
       });
     }
   });
+});
+
+app.post("/apply",function(req,res,next){
+  var empDetails=new empModel({
+    first_name:req.body.fname,
+    last_name:req.body.lname,
+    mobile:req.body.mob,
+    adhaar:req.body.adhaar
+  });
+
+
+ empDetails.save(function(err,req1){
+    if(err) throw err;
+    employee.exec(function(err,data){
+      if(err) throw err;
+      res.render('apply', { title: 'Employee Records', records:data, success:'Record Inserted Successfully' });
+        });
+  })
+});
+
+app.post("/hire",function(req,res,next){
+  var companyDetails=new companyModel({
+    job_type:req.body.job,
+    work:req.body.course,
+    location:req.body.location,
+    budget:req.body.budget
+  });
+
+
+ companyDetails.save(function(err,req1){
+    if(err) throw err;
+    company.exec(function(err,data){
+      if(err) throw err;
+      res.render('hire', { title: 'Company Records', records:data, success:'Record Inserted Successfully' });
+        });
+  })
 });
 
 
