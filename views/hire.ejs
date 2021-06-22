@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Post a Job|Website</title>
+	<title>Post a Job | Website</title>
   <body style="background-color:#98bfb5;"></body>
 
   <!-- Google Fonts -->
@@ -22,143 +22,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <link rel="icon" href="public\images\favicon-32x32.png" type="image" sizes="32x32">
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 
 </head>
 <body>
+
 	<section class="colored-section" id="title" style="background-color: #98bfb5;">
 
     <div class="container-fluid">
-  <!-- Nav Bar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-    <a class="navbar-brand" href="#"><strong><h1> CORY </h1></strong></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+
+      <!-- Nav Bar -->
   
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/" style="color: white;text-decoration: underline; font-size: 25px;"> Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#footer" style="color: white;text-decoration: underline; font-size: 25px;"> Contact </a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white; text-decoration: underline;font-size: 25px;">
-            Language
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#" style="color:black;font-size: 20px;"> English </a>
-            <a class="dropdown-item" href="#" style="color:black;font-size: 20px;"> Hindi </a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" style="color: white;text-decoration: underline;font-size: 25px;" href="home"> Login/Signup </a>
-        
-      </ul>
-      <div class="wrapper" >
-        <div class="search-input">
-          <a href="" target="_blank" hidden></a>
-          <input type="text" placeholder="Type to search.." >
-          <div class="autocom-box">
-            <li>Transportation</li>
-            <li>Carpentering</li>
-            <li>Handcraft</li>
-            <li>Painting</li>
-            <li>Construction</li>
-            <li>Househelp</li>
-            <li>Cooking</li>
-            <li>Weaving</li>
-            <li>Sewing</li>
-          </div>
-          <div class="icon"><i class="fas fa-search"></i></div>
+      <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <a class="navbar-brand" href="/"><strong><h1> CORY </h1></strong></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+
+            <!-- Item 1 -->
+
+            <li class="nav-item active">
+             <a class="nav-link" href="/" style="color: white;text-decoration: none; font-size: 25px;"> Home <span class="sr-only">(current)</span></a>
+            </li>
+          
+            <!-- Item 2 -->
+
+            <li class="nav-item">
+             <a class="nav-link" style="color: white;text-decoration: none;font-size: 25px;" href="home"> Login | Signup </a>
+            </li>
+
+            <!-- Item 3 -->
+
+            <li class="nav-item">
+             <a class="nav-link" href="#footer" style="color: white;text-decoration: none; font-size: 25px;"> Contact </a>
+            </li>
+          </ul>
+
+            <!-- Item 4 -->
+
+          <li>
+            <div id="google_translate_element"></div> 
+            <script type="text/javascript" > 
+              function googleTranslateElementInit() { 
+                new google.translate.TranslateElement(
+                  {pageLanguage: 'en'}, 
+                  'google_translate_element'
+                ); 
+              } 
+            </script> 
+            <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+            </script>
+          </li>
         </div>
-        
-      </div>
-      <script>
-        let suggestions=[
-          "Transportation",
-          "Carpentering",
-          "Handcraft",
-          "Painting",
-          "Househelp",
-          "Cooking",
-          "Weaving",
-          "Sewing"
-        ];
-        const searchWrapper=document.querySelector(".search-input");
-        const inputBox=searchWrapper.querySelector("input");
-        const suggBox=searchWrapper.querySelector(".autocom-box");
-        const icon = searchWrapper.querySelector(".icon");
-        let linkTag=searchWrapper.querySelector("a");
-        let webLink;
-        
-        //if user presses any key and releases
-        inputBox.onkeyup=(e)=>{
-          let userData = e.target.value; //user entered value
-          let emptyArray=[];
-          if(userData){
-            icon.onclick = ()=>{
-            webLink = "https://www.google.com/search?q=" + userData;
-            linkTag.setAttribute("href", webLink);
-            console.log(webLink);
-            linkTag.click();
-          }
-            emptyArray = suggestions.filter((data)=>{
-            //filtering array value and user char to lowercase and return only those 
-            //word which are starting with the user entered word
-            return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
-          });
-          emptyArray = emptyArray.map((data)=>{
-            //passing return data inside li tag
-            return data = '<li>' + data + '</li>';
-          });
-          // console.log(emptyArray);
-          searchWrapper.classList.add("active"); //shows autocomplete box
-          showSuggestions(emptyArray);
-          let allList = suggBox.querySelectorAll("li");
-          for(let i=0;i<allList.length;i++){
-            //adding onclick attribute in all li tag
-            allList[i].setAttribute("onclick","select(this)");
-          }
-          }else{
-            searchWrapper.classList.remove("active") //hides autocomplete box
-          }
-        }
-
-      function select(element){
-        let selectUserData = element.textContent;
-        inputBox.value = selectUserData; //passing the user selected list item data is testified
-        icon.onclick = ()=>{
-        webLink = "https://www.google.com/search?q=" + selectUserData;
-        linkTag.setAttribute("href", webLink);
-        linkTag.click();
-        }
-        searchWrapper.classList.remove("active");
-      }
-
-      function showSuggestions(list){
-        let listData;
-        if(!list.length){
-          userValue = inputBox.value;
-          listData = '<li>' + userValue + '</li>';
-        }else{
-          listData = list.join('');
-        }
-        suggBox.innerHTML = listData;
-      }
-      </script>
-      
+      </nav>
     </div>
-  </nav>
-  </div>
   </section>
 
 
 	  <!--title-->
 	<h1>Find Your People Here</h1><br>
 	<h3>Connect With Authentic Talent</h3><br>
-      <form action="/hire" method="POST" id="employeeForm">  
+    <form action="/hire" method="POST" id="employeeForm">  
         Select Job Type:  
         <select name="job">
           <option value="null">-null-</option>
@@ -174,7 +101,7 @@
         </select>
         <br><br>
         Describe your work:
-        <input type="text" name="course" size="15" style="font: size 20px;;"><br> 
+        <input type="text" name="course" size="15" style="font: size 20px;"><br> 
         <br>
         Work Location:
         <input type="text" name="location" size="15">
@@ -187,71 +114,64 @@
           <input type="submit" name="submit" class="btn btn-info" value="Submit"><br><br>
           <h6><a href="/"><b>Go to Home Page</b></a></h4>
       </form>
-      
-      <br>
-        
-        </div>
-        
-        
-        
-        <button type="button" class="btn btn-success"><a href="infoSubmit"><h4>Post Job</h4></a></button>
-        </form><br><br><br>
-
-	
-<!--footer-->
+    
+      <!--footer-->
 <footer id="footer">
   <footer class="bg-light text-center text-lg-start">
-    <!-- Grid container -->
     <div class="container p-4">
-      <!--Grid row-->
       <div class="row">
-        <!--Grid column-->
-        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-          <h5 class="text-uppercase"> <a href="https://docs.google.com/forms/d/e/1FAIpQLSeRyJeHINJSXEXyjgqbaLxVMF4kqrjkBSBz_ehMiIVtqgq5BA/viewform">Help & Support</a></h5>
 
+        <!-- Help and Support -->
+
+        <div class="col-lg-4 col-md-3 mb-3 mb-md-0">
+          <h5 class="text-uppercase"><b>Help & Support</b></h5>
+          <br>
+          <br>
+          <br>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfYc5Ch9DqxtxPZoz_yEjTr0iTA_BI_siXMJ9yY260fpwRtDA/viewform" target="_blank" style="font-size: 20px;"> Click Here <i class='bx bx-help-circle'></i></a>
         </div>
-        <!--Grid column-->
-  
-        <!--Grid column-->
-        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-          <h5 class="text-uppercase mb-0">Contact</h5><br>
-          <p>Email: xyz21@gmail.com</p>
-          <p>Helpline No.- 1800 225588</p>
+        
+        <!-- Contact -->
+
+        <div class="col-lg-4 col-md-3 mb-3 mb-md-0">
+          <h5 class="text-uppercase mb-0"><b>Contact</b></h5>
+          <p><i class="social-icon fas fa-envelope" style="height: 28px; width: 28px;"></i>
+            <br>
+            nacharya243@gmail.com
+            <br>
+            tyagiparisha99@gmail.com
+          </p>
+          <p><i class='bx bx-phone contact__icon' style="height: 28px; width: 28px;"></i>
+            <br>
+            Helpline No.- 1800 225588
+          </p>
         </div>
-        <!--Grid column-->
-  
-        <!--Grid column-->
-        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-          <h5 class="text-uppercase">About Us</h5><br>
-          <p>Developed by Code Linguistics, from one section of the society to another section. </p>
+      
+        <!-- About Us -->
+
+        <div class="col-lg-4 col-md-3 mb-3 mb-md-0">
+          <h5 class="text-uppercase"><b>About Us</b></h5>
+          <br>
+          <br>
+          <br>
+          <p><b> Developed from one section of the society to another section. </b></p>
         </div>
-        <!--Grid column-->
-  
-        <!--Grid column-->
-        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-          <h5 class="text-uppercase mb-0">Terms & Conditions</h5><br>
-           <p>Privacy Policy</p>
-           <p>Copyright Policy</p>
-           <p>Code of Conduct</p>
-          
-        </div>
-        <!--Grid column-->
+        
       </div>
-      <!--Grid row-->
+      
     </div>
-    <!-- Grid container -->
-  
-    <!-- Copyright -->
+    
+    <!-- Icons -->
     <i class="social-icon fab fa-facebook-f"></i>
-      <i class="social-icon fab fa-twitter"></i>
-      <i class="social-icon fab fa-instagram"></i>
-      <i class="social-icon fas fa-envelope"></i>
+    <i class="social-icon fab fa-twitter"></i>
+    <i class="social-icon fab fa-instagram"></i> 
+    
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
       © 2021 Copyright:
       <a class="text-dark" >CORY.com</a>
     </div>
-    <!-- Copyright -->
   </footer>
+</footer>
 
 </body>
 </html>
