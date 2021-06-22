@@ -10,6 +10,7 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 const path = require('path');
+const { strict } = require('assert');
 
 const app = express();
 
@@ -18,6 +19,8 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
+// Authentication
 
 app.use(session({
   secret: "Our little secret.",
@@ -30,6 +33,9 @@ app.use(passport.session());
 
 mongoose.connect("mongodb://localhost:27017/userDB", { useNewUrlParser: true });
 mongoose.set("useCreateIndex", true);
+var conn=mongoose.Collection;
+
+// Login Schema
 
 const userSchema = new mongoose.Schema({
   email: String,
@@ -38,6 +44,8 @@ const userSchema = new mongoose.Schema({
   secret: String
 });
 
+// Workers Schema
+
 const employeeSchema=new mongoose.Schema({
   first_name:String,
   last_name:String,
@@ -45,11 +53,23 @@ const employeeSchema=new mongoose.Schema({
   adhaar:Number
 });
 
+// Company Details Schema
+
 const companySchema=new mongoose.Schema({
   job_type:String,
   work:String,
   location:String,
   budget:Number
+});
+
+// Company types Schema
+
+const DetailSchema=new mongoose.Schema({
+  company_name:String,
+  job_type:String,
+  location:String,
+  pay:Number,
+  time:String
 });
 
 userSchema.plugin(passportLocalMongoose);
@@ -63,6 +83,8 @@ const employee=empModel.find({});
 const companyModel=new mongoose.model("Company",companySchema);
 const company=companyModel.find({});
 
+const DetailModel=new mongoose.model("Detail",DetailSchema)
+const description=DetailModel.find({});
 
 passport.use(User.createStrategy());
 
@@ -91,30 +113,17 @@ passport.use(new GoogleStrategy({
   }
 ));
 
-
-
-// app.get('/',function(req,res) {
-//   res.sendFile('hire.html');
-// });
-
-// app.get('/',function(req,res) {
-//   res.sendFile('apply.html');
-// });
-
-// app.get('/',function(req,res) {
-//   res.sendFile('link.html');
-// });
+// Get functions
 
 app.get("/", function (req, res) {
   res.render("index");
 });
 
-// app.get('/', function(req, res) {
-//   res.sendFile(path.join(__dirname, '/hire.html'));
-// });
-
-app.get("/link",function(req,res){
-  res.render("link");
+app.get("/link",function(req,res,next){
+  description.exec(function(err,data){
+    if(err) throw err;
+    res.render('link',{title:'Company Details',records:data});
+  });
 });
 
 app.get("/apply",function(req,res){
@@ -132,18 +141,6 @@ app.get("/infoSubmit",function(req,res){
 app.get("/home", function (req, res) {
   res.render("home");
 });
-
-// ejs.renderFile(__dirname + '/hire.ejs', function(res, req) {
-//   res.render("hire");
-// });
-
-// ejs.renderFile(__dirname + '/link.ejs', function(res, req) {
-//   res.render("link");
-// });
-
-// ejs.renderFile(__dirname + '/apply.ejs', function(res, req) {
-//   res.render("apply");
-// });
 
 app.get("/auth/google",
   passport.authenticate('google', { scope: ["profile"] })
@@ -176,38 +173,12 @@ app.get("/secrets", function (req, res) {
   });
 });
 
-// app.get("/submit", function (req, res) {
-//   if (req.isAuthenticated()) {
-//     res.render("submit");
-//   } else {
-//     res.redirect("/login");
-//   }
-// });
-
-// app.post("/submit", function (req, res) {
-//   const submittedSecret = req.body.secret;
-
-//   //Once the user is authenticated and their session gets saved, their user details are saved to req.user.
-//   // console.log(req.user.id);
-
-//   User.findById(req.user.id, function (err, foundUser) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       if (foundUser) {
-//         foundUser.secret = submittedSecret;
-//         foundUser.save(function () {
-//           res.redirect("/secrets");
-//         });
-//       }
-//     }
-//   });
-// });
-
 app.get("/logout", function (req, res) {
   req.logout();
   res.redirect("/");
 });
+
+// Post Functions
 
 app.post("/register", function (req, res) {
 
@@ -280,7 +251,26 @@ app.post("/hire",function(req,res,next){
   })
 });
 
+app.post("/link",function(req,res,next){
+  var companyDescription=new DetailModel({
+    company_name:req.body.cname,
+    job_type:req.body.job,
+    location:req.body.loc,
+    pay:req.body.payment,
+    time:req.body.time
+  });
+
+
+  companyDescription.save(function(err,req2){
+    if(err) throw err;
+    description.exec(function(err,data){
+      if(err) throw err;
+      res.render('link', { title: 'Company Details Records', records:data, success:'Record Inserted Successfully' });
+      });
+  })
+});
 
 app.listen(3000, function () {
   console.log("Server started on port 3000.");
 });
+
