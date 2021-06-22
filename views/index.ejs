@@ -21,336 +21,327 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1" >
 
+  <!-- Icons -->
   <link rel="icon" href="public\images\favicon-32x32.png" type="image" sizes="32x32">
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 
 </head>
 
 
 <body>
+
+
+    <!-- SCROLL TOP  -->
+
+  <a href="#" class="scrolltop show-scroll " id="scroll-top">
+    <i class='bx bx-chevron-up scrolltop__icon' ></i>
+  </a>
+  <script>
+    function scrollTop(){
+    const scrollTop = document.getElementById('scroll-top')
+    if(this.scrollY >= 560){
+        scrollTop.classList.add('show-scroll');
+    }
+    else{
+        scrollTop.classList.remove('show-scroll'); 
+    }
+  } 
+  window.addEventListener('scroll',scrollTop);
+  </script>
  
-  <section class="colored-section" id="title" style="background-color: #98bfb5;">
+<section class="colored-section" id="title" style="background-color: #98bfb5;">
+  <div class="container-fluid">
 
-    <div class="container-fluid">
+    <!-- Nav Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+      <a class="navbar-brand" href="#"><strong><h1> CORY </h1></strong></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
 
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
 
+          <!-- Item 1 -->
 
-
-      <!-- Nav Bar -->
-      <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-        <a class="navbar-brand" href="#"><strong><h1> CORY </h1></strong></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#" style="color: white;text-decoration: underline; font-size: 25px;"> Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#footer" style="color: white;text-decoration: underline; font-size: 25px;"> Contact </a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white; text-decoration: underline;font-size: 25px;">
-                Language
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#" style="color:black;font-size: 20px;"> English </a>
-                <a class="dropdown-item" href="#" style="color:black;font-size: 20px;"> Hindi </a>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" style="color: white;text-decoration: underline;font-size: 25px;" href="home"> Login/Signup </a>
+          <li class="nav-item active">
+            <a class="nav-link" href="/" style="color: white;text-decoration: none; font-size: 25px;" > Home <span class="sr-only">(current)</span></a>
+          </li>
             
-          </ul>
-          <div class="wrapper" >
-            <div class="search-input">
-              <a href="" target="_blank" hidden></a>
-              <input type="text" placeholder="Type to search.." >
-              <div class="autocom-box">
-                <li>Transportation</li>
-                <li>Carpentering</li>
-                <li>Handcraft</li>
-                <li>Painting</li>
-                <li>Construction</li>
-                <li>Househelp</li>
-                <li>Cooking</li>
-                <li>Weaving</li>
-                <li>Sewing</li>
-              </div>
-              <div class="icon"><i class="fas fa-search"></i></div>
-            </div>
-            
-          </div>
-          <script>
-            let suggestions=[
-              "Transportation",
-              "Carpentering",
-              "Handcraft",
-              "Painting",
-              "Househelp",
-              "Cooking",
-              "Weaving",
-              "Sewing"
-            ];
-            const searchWrapper=document.querySelector(".search-input");
-            const inputBox=searchWrapper.querySelector("input");
-            const suggBox=searchWrapper.querySelector(".autocom-box");
-            const icon = searchWrapper.querySelector(".icon");
-            let linkTag=searchWrapper.querySelector("a");
-            let webLink;
-            
-            //if user presses any key and releases
-            inputBox.onkeyup=(e)=>{
-              let userData = e.target.value; //user entered value
-              let emptyArray=[];
-              if(userData){
-                icon.onclick = ()=>{
-                webLink = "https://www.google.com/search?q=" + userData;
-                linkTag.setAttribute("href", webLink);
-                console.log(webLink);
-                linkTag.click();
-              }
-                emptyArray = suggestions.filter((data)=>{
-                //filtering array value and user char to lowercase and return only those 
-                //word which are starting with the user entered word
-                return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
-              });
-              emptyArray = emptyArray.map((data)=>{
-                //passing return data inside li tag
-                return data = '<li>' + data + '</li>';
-              });
-              // console.log(emptyArray);
-              searchWrapper.classList.add("active"); //shows autocomplete box
-              showSuggestions(emptyArray);
-              let allList = suggBox.querySelectorAll("li");
-              for(let i=0;i<allList.length;i++){
-                //adding onclick attribute in all li tag
-                allList[i].setAttribute("onclick","select(this)");
-              }
-              }else{
-                searchWrapper.classList.remove("active") //hides autocomplete box
-              }
-            }
+          <!-- Item 2 -->
 
-          function select(element){
-            let selectUserData = element.textContent;
-            inputBox.value = selectUserData; //passing the user selected list item data is testified
-            icon.onclick = ()=>{
-            webLink = "https://www.google.com/search?q=" + selectUserData;
-            linkTag.setAttribute("href", webLink);
-            linkTag.click();
-            }
-            searchWrapper.classList.remove("active");
-          }
+          <li class="nav-item">
+              <a class="nav-link" style="color: white;text-decoration: none;font-size: 25px;" href="home"> Login | Signup </a>
+          </li>
 
-          function showSuggestions(list){
-            let listData;
-            if(!list.length){
-              userValue = inputBox.value;
-              listData = '<li>' + userValue + '</li>';
-            }else{
-              listData = list.join('');
-            }
-            suggBox.innerHTML = listData;
-          }
+          <!-- Item 3 -->
+
+          <li class="nav-item">
+            <a class="nav-link" href="#footer" style="color: white;text-decoration: none; font-size: 25px;"> Contact </a>
+          </li>
+        </ul>
+
+          <!-- Item 4 -->
+
+        <li>
+          <div id="google_translate_element"></div> 
+          <script type="text/javascript" > 
+            function googleTranslateElementInit() { 
+              new google.translate.TranslateElement(
+                {pageLanguage: 'en'}, 
+                'google_translate_element'
+              ); 
+            } 
+          </script> 
+          <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
           </script>
-          
-        </div>
-      </nav>
-      <div class="row">
-
-        <div class="col-lg-6">
-          
-          <h2><b>Creating Opportunity for Rural Youth</b></h2>
-          <h4><strong>Learn | Earn | Grow </strong></h4>
-          
-          <style>
-          * {
-              box-sizing: border-box;
-            }
-            
-            /* Create two equal columns that floats next to each other */
-            .column {
-              float: left;
-              width: 50%;
-              padding: 10px;
-              
-            }
-            
-            /* Clear floats after the columns */
-            .row:after {
-              content: "";
-              display: table;
-              clear: both;
-            }
-            </style>
-            
-            <div class="row">
-              <div class="column" ><!--style="background-color:#aaa;"-->
-                <br>
-                <h2> For Companies</h2>
-                <p>Hire wokers here</p>
-                <button type="button" class="btn btn-dark btn-lg download-button"><a href="views\hire.ejs"> Start Hiring</a></button>
-              </div>
-              <div class="column">
-                <br>
-                <h2> For Workers</h2>
-                <p> Find Work here</p>
-                <button type="button" class="btn btn-dark btn-lg download-button"><a href="#job">Start Working</a></button>
-              </div>
-            </div>
-          
-        </div>
-        
+        </li>
       </div>
+    </nav>
 
+    <!-- Main section -->
+    <div class="row">
+      <div class="col-lg-12">
+        <h2 style="font-size: 40px;"><b>Creating Opportunity for Rural Youth</b></h2>
+        <h4 style="font-size: 30px;"><strong>Learn | Earn | Grow </strong></h4>
+        <br>
+        <br>
+        
+        <p class="description">
+          <img src="public\images\employability.jpg" alt="jobs" class="home-img" style="height:300px;max-width: 100%;margin-left: 150px;">
+           Let's make rural employment easy and convinient by establishing relationship between rural population and urban companies.
+        </p>
+
+        <!-- Image transition -->
+        <script>
+          gsap.from('.home__img', {opacity:0,duration:2,delay:1,x:60})
+          gsap.from('.description', {opacity:0,duration:2,delay:.8,y:25})  
+        </script>
+          
+        <!-- Inline styling(Main Section)-->
+        <style>
+        * {
+            box-sizing: border-box;
+          }
+            
+        /* Create two equal columns that floats next to each other */
+        .column {
+          float: left;
+          width: 50%;
+          padding: 10px;
+        }
+            
+        /* Clear floats after the columns */
+        .row:after {
+          content: "";
+          display: table;
+          clear: both;
+          }
+        </style>
+        
+        <div class="row">
+          <div class="column">
+            <br>
+            <h2> For Companies</h2>
+            <p>Hire workers here</p>
+            <button type="button" class="btn btn-dark btn-lg download-button"><a href="hire"> Start Hiring</a></button>
+          </div>
+              
+          <div class="column">
+            <br>
+            <h2> For Workers</h2>
+            <p> Find Work here</p>
+            <button type="button" class="btn btn-dark btn-lg download-button"><a href="#job">Start Working</a></button>
+          </div>
+              
+        </div>
+          
+      </div>
+        
     </div>
+       
+  </div>
+</section>
 
-  </section>
 
-
-  <!-- Features -->
-  <job id="job">
-    <br><h1>Job Categories</h1>
+    <!-- Features -->
+<job id="job">
+  <br><h1>Job Categories</h1>
   <div class="skills">
-    <div class="skill-row">
-      <img class="chilli-img" src="public\images\delivery-truck.png" alt="transportation-img">
-      <a href=link><h3>Transportation</h3></a>
-     
-    </div>
-    <div class="skill-row">
-      <img class="chilli-img" src="public\images\carpenter.png" alt="carpentering-img">
-      <a href=link><h3>Carpentering</h3></a>
+
+        <!-- Job 1 -->
+    <div class="rows" >
+      <div class="column">
+        <img class="chilli-img" src="public\images\delivery-truck.png" alt="transportation-img">
+        <a href=link><h3>Transportation</h3></a>
+      </div>
     </div>
 
-    <div class="skill-row">
-      <img class="chilli-img" src="public\images\porcelain.png" alt="handicraft-img">
-      <a href=link><h3>Handcraft</h3></a>
+        <!-- Job 2 -->
+    <div class="rows">
+      <div class="column">
+        <img class="chilli-img" src="public\images\carpenter.png" alt="carpentering-img">
+        <a href=link><h3>Carpentering</h3></a>
+      </div>
     </div>
 
-    <div class="skill-row">
-      <img class="chilli-img" src="public\images\paint-roll.png" alt="painting-img">
-      <a href=link><h3>Painting</h3></a>
+        <!-- Job 3 -->
+    <div class="rows">
+      <div class="column">
+        <img class="chilli-img" src="public\images\porcelain.png" alt="handicraft-img">
+        <a href=link><h3>Handcraft</h3></a>
+      </div>
     </div>
 
-    <div class="skill-row">
-      <img class="chilli-img" src="public\images\under-construction.png" alt="construction-img">
-      <a href=link> <h3>Construction</h3></a>
+        <!-- Job 4 -->
+    <div class="rows">
+      <div class="column">
+        <img class="chilli-img" src="public\images\paint-roll.png" alt="painting-img">
+        <a href=link><h3>Painting</h3></a>
+      </div>
+      
     </div>
-    <div class="skill-row">
-      <img class="chilli-img" src="public\images\dust.png" alt="househelp-img">
-      <a href=link> <h3>Househelp</h3></a>
+
+        <!-- Job 5 -->
+    <div class="rows">
+      <div class="column">
+        <img class="chilli-img" src="public\images\under-construction.png" alt="construction-img">
+        <a href=link> <h3>Construction</h3></a>
+      </div>
     </div>
-    <div class="skill-row">
-      <img class="chilli-img" src="public\images\cooking.png" alt="cooking-img">
-      <a href=link><h3>Cooking</h3></a>
+
+        <!-- Job 6 -->
+    <div class="rows">
+      <div class="column">
+        <img class="chilli-img" src="public\images\dust.png" alt="househelp-img">
+        <a href=link> <h3>Househelp</h3></a>
+      </div>
     </div>
-    <div class="skill-row">
-      <img class="chilli-img" src="public\images\ball-of-wool.png" alt="weaving-img">
-      <a href=link><h3>Weaving</h3></a>
+
+        <!-- Job 7 -->
+    <div class="rows">
+      <div class="column">
+        <img class="chilli-img" src="public\images\cooking.png" alt="cooking-img">
+        <a href=link><h3>Cooking</h3></a>
+      </div>
     </div>
-    <div class="skill-row">
-      <img class="chilli-img" src="public\images\sewing.png" alt="sewing-img">
-      <a href=link><h3>Sewing</h3></a>
+
+        <!-- Job 8 -->
+    <div class="rows">
+      <div class="column">
+        <img class="chilli-img" src="public\images\ball-of-wool.png" alt="weaving-img">
+        <a href=link><h3>Weaving</h3></a>
+      </div>
+    </div>
+
+        <!-- Job 9 -->
+    <div class="rows">
+      <div class="column">
+        <img class="chilli-img" src="public\images\sewing.png" alt="sewing-img">
+        <a href=link><h3>Sewing</h3></a>
+      </div>
     </div>
   </div>
 
+  <!-- Testimonials -->
 
-  <section class="colored-section" id="testimonials">
+<section class="colored-section" id="testimonials">
+  <div id="testimonial-carousel" class="carousel slide" data-ride="false">
+    <div class="carousel-inner">
 
-    <div id="testimonial-carousel" class="carousel slide" data-ride="false">
-      <div class="carousel-inner">
-        <div class="carousel-item active container-fluid">
-          <h2 class="testimonial-text">Want to get trained ?</h2>
-          <button type="button" class="btn btn-dark btn-lg download-button"><a href="https://www.startupindia.gov.in/content/sih/en/government-schemes/pmkvy_scheme.html" target="_blank">Know More</a></button>
-        </div>
-        <div class="carousel-item container-fluid">
-          <h2 class="testimonial-text">Free training programme</h2>
-          <button type="button" class="btn btn-dark btn-lg download-button"><a href="https://rural.nic.in/press-release/training-and-employment-rural-youthiio" target="_blank">Enroll Yourself</a></button>
-          
-        </div>
-        <div class="carousel-item container-fluid">
-          <h2 class="testimonial-text">Government policies realted to Employability</h2>
-          <button type="button" class="btn btn-dark btn-lg download-button"><a href="https://rural.nic.in/scheme-websites" target="_blank">Know More</a></button>
-         
-        </div>
-        <div class="carousel-item container-fluid">
-          <h2 class="testimonial-text">Learn something new, today !</h2>"
-          <button type="button" class="btn btn-dark btn-lg download-button"><a href="https://free.aicte-india.org/" target="_blankl">Register</a></button>
-        
-        </div>
+      <div class="carousel-item active container-fluid">
+        <h2 class="testimonial-text">Want to get trained ?</h2>
+        <button type="button" class="btn btn-dark btn-lg download-button"><a href="https://www.startupindia.gov.in/content/sih/en/government-schemes/pmkvy_scheme.html" target="_blank">Know More</a></button>
       </div>
-      <a class="carousel-control-prev" href="#testimonial-carousel" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-      </a>
-      <a class="carousel-control-next" href="#testimonial-carousel" role="button" data-slide="next">
-    <span class="carousel-control-next-icon"></span>
-      </a>
+
+      <div class="carousel-item container-fluid">
+        <h2 class="testimonial-text">Free training programme</h2>
+        <button type="button" class="btn btn-dark btn-lg download-button"><a href="https://rural.nic.in/press-release/training-and-employment-rural-youthiio" target="_blank">Enroll Yourself</a></button>
+      </div>
+
+      <div class="carousel-item container-fluid">
+        <h2 class="testimonial-text">Government policies related to Employability</h2>
+        <button type="button" class="btn btn-dark btn-lg download-button"><a href="https://rural.nic.in/scheme-websites" target="_blank">Know More</a></button>
+      </div>
+
+      <div class="carousel-item container-fluid">
+        <h2 class="testimonial-text">Learn something new, today !</h2>"
+        <button type="button" class="btn btn-dark btn-lg download-button"><a href="https://free.aicte-india.org/" target="_blankl">Register</a></button>
+      </div>
+
     </div>
 
-  </section>
+    <a class="carousel-control-prev" href="#testimonial-carousel" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+    </a>
 
+    <a class="carousel-control-next" href="#testimonial-carousel" role="button" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+    </a>
+  </div>
 
+</section>
+
+<!-- Footer -->
  
-  <footer id="footer">
+<footer id="footer">
   <footer class="bg-light text-center text-lg-start">
     <div class="container p-4">
-      
       <div class="row">
-        
-        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-          <h5 class="text-uppercase"> <a href="https://docs.google.com/forms/d/e/1FAIpQLSeRyJeHINJSXEXyjgqbaLxVMF4kqrjkBSBz_ehMiIVtqgq5BA/viewform"><b>Help & Support</b></a></h5>
 
+        <!-- Help and Support -->
+
+        <div class="col-lg-4 col-md-3 mb-3 mb-md-0">
+          <h5 class="text-uppercase"><b>Help & Support</b></h5>
+          <br>
+          <br>
+          <br>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfYc5Ch9DqxtxPZoz_yEjTr0iTA_BI_siXMJ9yY260fpwRtDA/viewform" target="_blank" style="font-size: 20px;"> Click Here <i class='bx bx-help-circle'></i></a>
         </div>
         
-  
-        
-        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-          <h5 class="text-uppercase mb-0"><b>Contact</b></h5><br>
-          <p><e>Email</e>: 
+        <!-- Contact -->
+
+        <div class="col-lg-4 col-md-3 mb-3 mb-md-0">
+          <h5 class="text-uppercase mb-0"><b>Contact</b></h5>
+          <p><i class="social-icon fas fa-envelope" style="height: 28px; width: 28px;"></i>
             <br>
-            nandini.acharya31@gmail.com
+            nacharya243@gmail.com
             <br>
             tyagiparisha99@gmail.com
-            <!-- <a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=new">nandini.acharya31@gmail.com</a><br>
-            <a href="tyagiparisha99@gmail.com">tyagiparisha99@gmail.com</a> -->
           </p>
-          <p><e>Helpline No.- 1800 225588</e></p>
+          <p><i class='bx bx-phone contact__icon' style="height: 28px; width: 28px;"></i>
+            <br>
+            Helpline No.- 1800 225588
+          </p>
         </div>
       
-        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-          <h5 class="text-uppercase"><b>About Us</b></h5><br>
+        <!-- About Us -->
+
+        <div class="col-lg-4 col-md-3 mb-3 mb-md-0">
+          <h5 class="text-uppercase"><b>About Us</b></h5>
+          <br>
+          <br>
+          <br>
           <p><b> Developed from one section of the society to another section. </b></p>
-        </div>
-        
-  
-        
-        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-          <h5 class="text-uppercase mb-0"><b>Terms & Conditions</b></h5><br>
-           <p><e>Privacy Policy</e></p>
-           <p><e>Copyright Policy</e></p>
-           <p><e>Code of Conduct</e></p>
-          
         </div>
         
       </div>
       
     </div>
     
-  
-  
+    <!-- Icons -->
     <i class="social-icon fab fa-facebook-f"></i>
-      <i class="social-icon fab fa-twitter"></i>
-      <i class="social-icon fab fa-instagram"></i>
-      <i class="social-icon fas fa-envelope"></i>
+    <i class="social-icon fab fa-twitter"></i>
+    <i class="social-icon fab fa-instagram"></i> 
+    
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
       © 2021 Copyright:
       <a class="text-dark" >CORY.com</a>
     </div>
   </footer>
-
+</footer>
 
 </body>
 
 </html>
+
